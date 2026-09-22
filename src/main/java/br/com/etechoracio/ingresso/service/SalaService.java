@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SalaService {
@@ -28,4 +29,12 @@ public class SalaService {
 
         return salaMapper.toResponseDTO(salas);
     }
+
+    public Optional<SalaResponseDTO> buscarSalaAtivaPorId(Long id){
+        Optional<Sala> sala = salaRepository.buscarSalaAtivaPorId(id);
+
+        return sala.map(salaMapper::toResponseDTO);
+    }
+
+
 }

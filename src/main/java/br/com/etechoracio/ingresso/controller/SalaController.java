@@ -3,12 +3,11 @@ package br.com.etechoracio.ingresso.controller;
 import br.com.etechoracio.ingresso.dto.SalaResponseDTO;
 import br.com.etechoracio.ingresso.service.SalaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/salas")
@@ -25,5 +24,15 @@ public class SalaController {
     @GetMapping
     public List<SalaResponseDTO> listarSalas(){
         return salaService.buscarSalasAtivas();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<SalaResponseDTO> buscarSalaPorId(@PathVariable Long id){
+        Optional<SalaResponseDTO> sala = salaService.buscarSalaAtivaPorId(id);
+
+        if (sala.isPresent()){
+            return ResponseEntity.ok(sala.get());
+        }
+        return ResponseEntity.notFound().build();
     }
 }
