@@ -19,12 +19,6 @@ public class SalaService {
     @Autowired
     private SalaMapper salaMapper;
 
-
-    public SalaService(SalaRepository salaRepository, SalaMapper salaMapper){
-        this.salaRepository = salaRepository;
-        this.salaMapper = salaMapper;
-    }
-
     public List<SalaResponseDTO> buscarSalasAtivas(){
         List<Sala> salas = salaRepository.buscarSalasAtivas();
 
@@ -40,10 +34,8 @@ public class SalaService {
     public SalaResponseDTO criarSala(SalaRequestDTO request){
         Sala sala = salaMapper.toEntity(request);
 
-        Sala salaSalva = salaRepository.save(sala);
+        Sala salvarSala = salaRepository.save(sala);
 
-        return salaMapper.toResponseDTO(salaSalva);
+        return salaMapper.toResponseDTO(salvarSala);
     }
-
-
 }

@@ -13,5 +13,5 @@ public interface SalaRepository extends JpaRepository<Sala, Long> {
     List<Sala>buscarSalasAtivas();
 
     @Query("SELECT sala FROM Sala sala WHERE sala.id = :id AND sala.dtExclusao IS NULL")
-    Optional<Sala> buscarSalaAtivaPorId(@Param("id") Long id);
+    Optional<Sala> buscarSalaAtivaPorId(Long idSala);
 }
