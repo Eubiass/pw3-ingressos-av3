@@ -1,5 +1,6 @@
 package br.com.etechoracio.ingresso.service;
 
+import br.com.etechoracio.ingresso.dto.SalaRequestDTO;
 import br.com.etechoracio.ingresso.dto.SalaResponseDTO;
 import br.com.etechoracio.ingresso.entity.Sala;
 import br.com.etechoracio.ingresso.mapper.SalaMapper;
@@ -34,6 +35,14 @@ public class SalaService {
         Optional<Sala> sala = salaRepository.buscarSalaAtivaPorId(id);
 
         return sala.map(salaMapper::toResponseDTO);
+    }
+
+    public SalaResponseDTO criarSala(SalaRequestDTO request){
+        Sala sala = salaMapper.toEntity(request);
+
+        Sala salaSalva = salaRepository.save(sala);
+
+        return salaMapper.toResponseDTO(salaSalva);
     }
 
 
